@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>不要乱按和乱点！</title>
+    <script type="text/javascript">
+        function maskingKeyboard() {
+            if(event.keyCode == 13) {
+                event.keyCode = 0;
+                event.returnValue = false;
+                alert("都说不要按回车了！")
+            }
+            if(event.keyCode == 116) {
+                event.keyCode = 0;
+                event.returnValue = false;
+                alert("都说不要按F5了！")
+            }
+            if((event.altKey) && ((window.event.keyCode == 37) || (window.event.keyCode == 39))) {
+                event.returnValue = false;
+                alert("都说不要按Alt+左/右键了！")
+            }
+            if((event.shiftKey) && (event.keyCode == 121)) {
+                event.returnValue = false;
+                alert("都说不要按Shift + F10了！")
+            }
+        }
+        function rightKey() {
+            if(event.button == 2) {
+                event.returnValue = false;
+                alert("警告，都说了别按右键")
+            }
+        }
+    </script>
+</head>
+<body onkeydown="maskingKeyboard()">
+<script type="text/javascript">
+    document.write("别按回车和F5！");
+    document.write("</br>");
+    document.write("别按Alt+左/右和shift + F10!");
+    document.write("</br>");
+    document.write("别按右键!");
+    document.onmousedown=rightKey;
+</script>
+
+</body>
+</html>
