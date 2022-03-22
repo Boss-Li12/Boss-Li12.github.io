@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>点击右键然后去我的博客玩玩</title>
+  <script type="text/javascript">
+    function gosite() {
+      if(event.button == 2) {
+        alert("骗招狗子欢迎您");
+        window.open("https://bridge-killer.blog.csdn.net/");
+        return false;
+      }
+    }
+  </script>
+
+</head>
+<body>
+<script type="text/javascript">
+  document.writeln("点右键玩玩？")
+  document.onmousedown = gosite;
+
+</script>
+
+</body>
+</html>
