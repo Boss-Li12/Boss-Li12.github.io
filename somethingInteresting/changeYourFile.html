@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>帮助您修改文件</title>
+</head>
+<body>
+    <p>请务必使用IE浏览器，允许所有的ActiveXObject交互请求</p>
+    <p>现在只有IE浏览器还可以使用ActiveXObject对象 然后把它和VB的文件操作语句嵌套一起</p>
+    <p>我觉得，应该是由于微软当年把html VBS IE JS做了深层次的捆绑， 安全性不足的同时显得一家独大</p>
+    <p>因此后面的Chrome Firefox都摒弃这种方式了</p>
+    <table width="392" border="1">
+        <tr>
+            <td height="24" colspan="2">
+                <form name="form5" method="post" action="">
+                    文件路径: <input name="text1" type="textfield" value="C:\" size="40">
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td width="207" height="163">
+                <form name="form3" method="post" action="">
+                    <textarea name="textarea1" cols="30" rows="10"></textarea>
+                </form>
+            </td>
+            <td width="169">
+                <form name="form4" method="post" action="">
+                    <textarea name="textarea2" rows="10"></textarea>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td height="28">
+                <form name="form1" method="post" action="">
+                    <input type="button" name="Button" value="读取" onclick="run(0)">
+                </form>
+            </td>
+            <td>
+                <form name="form2" method="post" action="">
+                    <input type="button" name="Submit2" value="重写" onclick="run(1)">
+                    <input type="button" name="Button" value="追加" onclick="run(2)">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <script language="JavaScript">
+
+        function TextStreamTest(fname, Addname, n) {
+
+            var fso, f, ts, s;
+            var ForRWA = 0, ForReading = 1, ForWriting = 2, ForAppending = 8;
+            var TristateUseDefault = -2, TristateTrue = -1, TristateFalse = 0;
+            // 下面这行报错
+            // document.write("good")
+            // 只能在IE浏览器下访问
+            fso = new ActiveXObject("Scripting.FileSystemObject");
+
+            var s1 = Addname.innerHTML;
+
+            if(fname.value != "") {
+                f = fso.getFile(fname.value)
+                //document.write(f)
+                switch (n) {
+                    // 重写
+                    case 1: ForRWA = ForWriting;break;
+                    // 追加
+                    case 2: ForRWA = ForAppending;break;
+                }
+                if(n > 0) {
+                    ts = f.OpenAsTextStream(ForRWA, TristateUseDefault);
+                    var s1 = Addname.innerHTML;
+                    ts.Write(s1);
+                    ts.Close();
+                }
+                // 读取
+                ts = f.OpenAsTextStream(ForReading, TristateUseDefault);
+                s = ts.ReadLine();
+                ts.Close();
+            }
+            return(s);
+        }
+
+        function run(n) {
+            //document.form3.textarea1.innerHTML = document.form5.text1 + document.form4.textarea2
+            document.form3.textarea1.innerHTML = TextStreamTest(document.form5.text1, document.form4.textarea2, n);
+        }
+
+    </script>
+</body>
+</html>
